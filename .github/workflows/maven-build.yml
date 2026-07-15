@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Compile Project
+    name: Build Project
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -30,9 +30,9 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Give Execute Permission to mvnw
+      - name: Give Execute Permission to MVNW
         run: chmod +x mvnw
-      - name: Compile Project
+      - name: Build Project
         run: ./mvnw clean compile
 
   test:
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Test
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -49,14 +49,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      - name: Cache Maven packages
+      - name: Cache Maven Packages
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Give execute permission to mvnw
+      - name: Give Execute Permission to MVNW
         run: chmod +x mvnw
       - name: Run Tests
         run: ./mvnw clean test
